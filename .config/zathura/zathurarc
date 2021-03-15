@@ -1,0 +1,7 @@
+map D toggle_page_mode
+map d scroll half-down
+map u scroll half-up
+map <Right> scroll full-down
+map <Left>  scroll full-up
+map <C-r> reload
+map R recolor

@@ -1,0 +1,11 @@
+w warp
+t windowzoom
+ctrl+space warp,click 3,end
+shift+space warp,click 2,end
+ctrl+Return warp,doubleclick 1,end
+shift+Return warp,click 1
+# i wanna doubleclick drag too but it doesnt seem feasible
+d drag 1
+
+y click 4
+e click 5

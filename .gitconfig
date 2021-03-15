@@ -1,0 +1,7 @@
+[user]
+	email = dfuehrer@email.arizona.edu
+	name = dfuehrer
+[alias]
+    lgg = log --decorate --graph --all --date-order
+    lg = !git --no-pager log --decorate --graph --all --date-order --oneline -n 10
+    co = checkout

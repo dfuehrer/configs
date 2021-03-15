@@ -1,0 +1,56 @@
+
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set number
+set relativenumber
+" mouse in insert is pretty useless and i dont really feel like adjusting the
+" settings on my touchpad so it has better palm rejection
+set mouse=cnv
+set ignorecase
+set smartcase
+set splitright
+set title
+set scrolloff=3
+set display=lastline
+set undofile
+set foldmethod=syntax
+autocmd FileType python set foldmethod=indent
+set nofoldenable
+
+map <leader>h :setlocal hlsearch!<CR>
+map <leader>o :setlocal spell! spellang=en_US<CR>
+"map <leader>c mcI# <Esc>`c2l
+map <C-H> <c-W>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+"map <C-PageUp> :tabeprev<CR>
+map CTRL-<PageUp> gT
+map CTRL-<PageDown> gt
+
+"imap <C-BS> <Esc>vbc
+"imap  <Esc>vbc
+imap  <C-\><C-O>cb
+imap <C-e> <C-x><C-e>
+imap <C-y> <C-x><C-y>
+"see the problem is that you cant to ctrl+shift in vim, its the same as ctrl
+"vmap <C-S-C> "+y
+"vmap <C-S-V> "+p
+
+
+call plug#begin('~/.config/nvim/plugged')
+
+Plug 'ap/vim-css-color'
+Plug 'vifm/vifm.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-afterimage'
+"Plug 'neoclide/coc.nvim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'severin-lemaignan/vim-minimap'
+Plug 'ThePrimeagen/vim-be-good'
+
+call plug#end()

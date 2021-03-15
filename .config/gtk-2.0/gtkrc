@@ -1,0 +1,5 @@
+gtk-icon-theme-name = "Breeze-dark"
+gtk-theme-name = "Arc-Darker"
+gtk-font-name = "DejaVu Sans 10"
+gtk-application-prefer-dark-theme = true
+

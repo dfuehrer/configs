@@ -1,0 +1,195 @@
+# most of this i stole from luke, thats why its so bad (commenting out things i dont care about)
+
+# Basic binds
+#super + Return
+#	$TERMINAL
+super + shift + ctrl + c
+	kill -9 $(xdotool getwindowfocus getwindowpid)
+super + q
+	xkill
+#super + r
+    #dmenu_run -c -l 10
+{super + r, super + shift + d, ctrl + Escape}
+    dmenu_run -c -l 10
+# super
+#     dmenu_run -c -l 10
+super + ctrl + c
+    clipmenu
+super + a
+    TERM= dmenuedit
+super + alt + s
+    xsel -po | xsel -bi
+#super + e
+#	$TERMINAL -e neomutt; pkill -RTMIN+12 $STATUSBAR
+#super + m
+#	$TERMINAL -e ncmpcpp
+#super + n
+#	$TERMINAL -e newsboat
+#super + c
+#	$TERMINAL -e calcurse -D ~/.config/calcurse
+super + shift + a
+	$TERMINAL -e alsamixer; pkill -RTMIN+10 $STATUSBAR
+super + alt + m
+    messaging
+ctrl + super + v
+    open-screenshots
+#super + shift + c
+#	mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
+#super + shift + e
+#	tutorialvids
+#super + w
+#	$TERMINAL -e sudo nmtui
+super + shift + w
+	$BROWSER
+super + w
+	brave
+super + ctrl + w
+	$BROWSER2
+ctrl + super + m
+    TERM= man.sh
+ctrl + shift + Escape
+    $TERMINAL -e htop
+ctrl + alt + t
+    $TERMINAL
+ctrl + super + a
+    nastart.sh
+super + e
+	pcmanfm
+super + shift + e
+	$TERMINAL -e lfrun
+
+# Et cetera...
+#super + grave
+#	dmenuunicode
+#super + Scroll_Lock
+#	killall screenkey || screenkey
+#super + Insert
+#	showclip
+super + shift + h
+	prompt 'Hibernate computer?' 'sudo -A systemctl hibernate'
+super + shift + x
+	prompt "Shutdown computer?" "sudo -A shutdown -h now"
+super + shift + r
+	prompt "Reboot computer?" "reboot"
+super + shift + Escape
+	prompt 'Leave Xorg?' 'killall Xorg'
+super + x
+    xkill
+	#ifinstalled slock && ( slock & xset dpms force off ; mpc pause ; pauseallmpv )
+super + shift + l
+	slock
+XF86Launch1
+	xset dpms force off
+XF86TouchpadToggle
+    tptoggle
+	#(synclient | grep "TouchpadOff.*1" && synclient TouchpadOff=0) || synclient TouchpadOff=1
+XF86Touchpad{Off,On}
+    tptoggle {off,on}
+	#synclient TouchpadOff={1,0}
+XF86MonBrightnessDown
+	backlight --dec
+XF86MonBrightnessUp
+	backlight --inc
+
+# Take screenshot
+alt + {_,shift} + Print
+    maimpicker -w{_,a}
+{ctrl,super} + Print
+    maimpicker -S{_,a}
+super + shift + s
+    maimpicker -sa
+{super + shift,_} + Print
+    maimpicker -p{en,_}
+# super + shift + Print
+#     maimpicker -pe
+# Print
+#     maimpicker
+
+## Print: Record audio or video; Del: kill recording
+#super + Print
+#	dmenurecord
+#super + Delete
+#	dmenurecord kill
+
+# Pause audio
+#super + p
+	#mpc toggle
+super + shift + p
+	mpc pause; pauseallmpv
+# Changes to next/previous tracks
+super + {comma,period}
+	mpc {prev,next}
+# Restart track
+super + shift + less
+	mpc seek 0%
+# Seek foward in song
+super + {_,shift +} bracketright
+	mpc seek +{10,120}
+# Seek backward in song
+super + {_,shift +} bracketleft
+	mpc seek -{10,120}
+# Increase volume
+# NOTE i might want to not map super equal so maybe reconsider
+super + {equal,plus}
+    sound --inc {_,15}
+    #amixer sset Master {5,15}%+ && pkill -RTMIN+10 dwmblocks
+# Decrease volume
+super + {_,shift +} minus
+    sound --dec {_,15}
+    #amixer sset Master {5,15}%- && pkill -RTMIN+10 dwmblocks
+super + shift + m
+    sound --toggle
+    #amixer sset Master toggle && pkill -RTMIN+10 dwmblocks
+
+# Audiokeys
+XF86AudioMute
+    sound --toggle
+XF86Audio{Raise,Lower}Volume
+    sound --{inc,dec}
+XF86Audio{Next,Prev}
+	mpc {next,prev}
+XF86Audio{Pause,Play,Stop}
+	mpc {pause,play,stop}
+XF86Audio{Rewind,Forward}
+	mpc seek {-,+}10
+XF86AudioRecord
+	dmenurecord
+XF86AudioMedia
+	$TERMINAL -e ncmpcpp
+
+XF86PowerOff
+	prompt "Shutdown computer?" "sudo -A shutdown -h now"
+XF86Calculator
+	$TERMINAL -e bc
+# XF86Sleep
+# 	prompt 'Hibernate computer?' 'sudo -A zzz'
+XF86WWW
+	$BROWSER
+XF86DOS
+	$TERMINAL
+XF86ScreenSaver
+	xset dpms force off
+XF86TaskPane
+	$TERMINAL -e htop
+XF86Mail
+	$TERMINAL -e neomutt
+XF86MyComputer
+	$TERMINAL -e $FILE /
+
+# Function keys
+# Hibernate
+super + F4
+	prompt 'Hibernate computer?' 'sudo -A systemctl hibernate'
+#super + F5 is unbound.
+# Start torrent daemon/open interface
+super + F6
+	torwrap
+# toggle torrent daemon
+super + F7
+	td-toggle
+# sync email
+super + F8
+	mailsync
+# Mount a USB drive or Android device
+super + {F9,F10}
+	{dmenumount,dmenuumount}

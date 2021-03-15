@@ -1,0 +1,23 @@
+Description = "code dark"
+
+Categories = {"dark"}
+
+Default = { Colour="#D4D4D4" }
+Canvas  = { Colour="#1E1E1E" }
+Number  = { Colour="#B5CEA8" }
+Escape  = { Colour="#8040f0" }
+String  = { Colour="#CE9178" }
+BlockComment  = { Colour="#6A9955", Italic }
+StringPreProc = String
+LineComment   = BlockComment
+Operator      = { Colour="#D4D4D4" } 
+LineNum       = { Colour="#5A5A5A" } 
+PreProcessor  = {  Colour="#C586C0" }
+Interpolation = { Colour="#CA6DE1" }
+
+Keywords = {
+  { Colour="#C586C0" },
+  { Colour="#569CD6" },
+  { Colour="#9CDCFE" },
+  { Colour="#569CD6" },
+}

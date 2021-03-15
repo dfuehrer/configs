@@ -1,0 +1,39 @@
+#!/bin/bash
+
+alias bash='bash --rcfile $HOME/.config/bash/bashrc'
+alias ls='ls --color=auto'
+alias la='ls -a'
+alias lA='ls -A'
+alias ll='ls -lh'
+alias lla='ls -lah'
+alias lt='ls -rt'
+alias diff='diff -u --color=auto'
+alias grep='grep --color=auto'
+alias ip='ip --color=auto'
+alias less='less -r'
+alias src='. ~/.bash_profile'
+alias kms='sudo shutdown now'
+alias env='env | sort'
+alias vc='vimcat'
+alias hi='highlight --out-format truecolor'
+alias e="$EDITOR -p"
+alias psuf="ps -u $USER f"
+alias pi=pacinstall
+alias nvim-qt='nvim-qt --no-ext-tabline --no-ext-popupmenu'
+# these are hardcoded personal locations for my windows drive
+alias mwin='sudo mount /dev/nvme1n1p3 /mnt/win'
+alias umwin='sudo umount /mnt/win'
+alias p=pacman
+alias brep=bgrep
+alias ungron='gron --ungron'
+# uses a path set in the bashrc
+alias schwrk="cd $SCHWRK"
+alias eagle="QT_XCB_GL_INTEGRATION=xcb_egl eagle"
+alias se=dmenuedit
+alias gssh='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa'
+alias lf=lfrun
+# nv points to my dev version of nvim, nvim points to the stable one in the repos
+alias nv='/usr/local/bin/nvim'
+alias nvim='/usr/bin/nvim'
+alias config-git='command git --git-dir=$HOME/gitstuffs/configs --work-tree=$HOME'
+alias confg=config-git
