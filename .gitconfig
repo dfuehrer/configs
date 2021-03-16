@@ -1,5 +1,4 @@
 [user]
-	email = dfuehrer@email.arizona.edu
 	name = dfuehrer
 [alias]
     lgg = log --decorate --graph --all --date-order
