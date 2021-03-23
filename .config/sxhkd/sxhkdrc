@@ -2,7 +2,7 @@
 
 # Basic binds
 #super + Return
-#	$TERMINAL
+#	$TABBED_TERMINAL
 super + shift + ctrl + c
 	kill -9 $(xdotool getwindowfocus getwindowpid)
 super + q
@@ -19,16 +19,12 @@ super + a
     TERM= dmenuedit
 super + alt + s
     xsel -po | xsel -bi
-#super + e
-#	$TERMINAL -e neomutt; pkill -RTMIN+12 $STATUSBAR
-#super + m
-#	$TERMINAL -e ncmpcpp
 #super + n
-#	$TERMINAL -e newsboat
+#	$TABBED_TERMINAL -e newsboat
 #super + c
-#	$TERMINAL -e calcurse -D ~/.config/calcurse
-super + shift + a
-	$TERMINAL -e alsamixer; pkill -RTMIN+10 $STATUSBAR
+#	$TABBED_TERMINAL -e calcurse -D ~/.config/calcurse
+#super + shift + a
+	#$TABBED_TERMINAL -e alsamixer; pkill -RTMIN+10 $STATUSBAR
 super + alt + m
     messaging
 ctrl + super + v
@@ -38,7 +34,7 @@ ctrl + super + v
 #super + shift + e
 #	tutorialvids
 #super + w
-#	$TERMINAL -e sudo nmtui
+#	$TABBED_TERMINAL -e sudo nmtui
 super + shift + w
 	$BROWSER
 super + w
@@ -48,9 +44,9 @@ super + ctrl + w
 ctrl + super + m
     TERM= man.sh
 ctrl + shift + Escape
-    $TERMINAL -e htop
+    $TABBED_TERMINAL -e htop
 ctrl + alt + t
-    $TERMINAL
+    $TABBED_TERMINAL
 ctrl + super + a
     nastart.sh
 super + e
@@ -155,24 +151,24 @@ XF86Audio{Rewind,Forward}
 XF86AudioRecord
 	dmenurecord
 XF86AudioMedia
-	$TERMINAL -e ncmpcpp
+	$TABBED_TERMINAL -e ncmpcpp
 
 XF86PowerOff
 	prompt "Shutdown computer?" "sudo -A shutdown -h now"
 XF86Calculator
-	$TERMINAL -e bc
+	$TABBED_TERMINAL -e bc
 # XF86Sleep
 # 	prompt 'Hibernate computer?' 'sudo -A zzz'
 XF86WWW
 	$BROWSER
 XF86DOS
-	$TERMINAL
+	$TABBED_TERMINAL
 XF86ScreenSaver
 	xset dpms force off
 XF86TaskPane
-	$TERMINAL -e htop
+	$TABBED_TERMINAL -e htop
 XF86Mail
-	$TERMINAL -e neomutt
+	$TABBED_TERMINAL -e neomutt
 XF86MyComputer
 	$TERMINAL -e $FILE /
 

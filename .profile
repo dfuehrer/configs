@@ -1,4 +1,4 @@
-export PROFILE_VERSION=1
+export PROFILE_VERSION=2
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
@@ -6,6 +6,7 @@ export PATH=$HOME/.local/bin/scripts:$HOME/.local/bin:$PATH:$XDG_CONFIG_HOME/ema
 # well i wanted to do nvim -p so i could easily have it just open in new tabs but things had issues casue 'nvim -p' isnt a command
 export EDITOR=/usr/bin/nvim
 export TERMINAL=alacritty
+export TABBED_TERMINAL="tabbed -c -r 2 alacritty --embed ''"
 export BROWSER=brave
 #export BROWSER='tabbed -c surf -ge'
 export BASH_ENV=$XDG_CONFIG_HOME/bash/bashrc

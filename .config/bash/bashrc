@@ -31,6 +31,7 @@ complete -F _complete_alias config-git
 complete -F _complete_alias confg
 complete -F _complete_alias hi
 complete -F _complete_alias p
+complete -F _command tabbed
 # dont need these casue theyre in my inputrc
 #bind '"\C-l": clear-screen'
 #set -o vi
