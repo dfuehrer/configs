@@ -127,21 +127,21 @@ super + {_,shift +} bracketleft
 # Increase volume
 # NOTE i might want to not map super equal so maybe reconsider
 super + {equal,plus}
-    sound --inc {_,15}
-    #amixer sset Master {5,15}%+ && pkill -RTMIN+10 dwmblocks
+    sound --inc {_,15} && pkill -RTMIN+17 dwmblocks
+    #amixer sset Master {5,15}%+ && pkill -RTMIN+17 dwmblocks
 # Decrease volume
 super + {_,shift +} minus
-    sound --dec {_,15}
-    #amixer sset Master {5,15}%- && pkill -RTMIN+10 dwmblocks
+    sound --dec {_,15} && pkill -RTMIN+17 dwmblocks
+    #amixer sset Master {5,15}%- && pkill -RTMIN+17 dwmblocks
 super + shift + m
-    sound --toggle
-    #amixer sset Master toggle && pkill -RTMIN+10 dwmblocks
+    sound --toggle && pkill -RTMIN+17 dwmblocks
+    #amixer sset Master toggle && pkill -RTMIN+17 dwmblocks
 
 # Audiokeys
 XF86AudioMute
-    sound --toggle
+    sound --toggle && pkill -RTMIN+17 dwmblocks
 XF86Audio{Raise,Lower}Volume
-    sound --{inc,dec}
+    sound --{inc,dec} && pkill -RTMIN+17 dwmblocks
 XF86Audio{Next,Prev}
 	mpc {next,prev}
 XF86Audio{Pause,Play,Stop}
