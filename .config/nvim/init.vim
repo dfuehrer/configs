@@ -137,7 +137,7 @@ else
     " TODO on that note organize this better so my normal bashrc isnt taken up
     " by this and i can just have the normal thing and dont have to worry
     " make ^p an operator for pasting
-    map <silent> <C-p> :set opfunc=CPaste<CR>g@
+    nmap <silent> <C-p> :set opfunc=CPaste<CR>g@
     " paste in the object, so ^p can be an operator for pasting things
     function! CPaste(type, ...)
         let sel_save = &selection
@@ -155,8 +155,8 @@ else
 
 
     " make a operator for ^s that searches the object or selection
-    nmap <silent> <C-s> :set opfunc=FindSel<CR>g@
-    vmap <silent> <C-s> :<C-U>call FindSel(visualmode(), 1)<CR>
+    nnoremap <silent> <C-s> :set opfunc=FindSel<CR>g@
+    vnoremap <silent> <C-s> :<C-U>call FindSel(visualmode(), 1)<CR>
     " this function searches the object by yanking it and setting the / register
     " to that yank and calling /<CR> to start the search
     function! FindSel(type, ...)
@@ -178,8 +178,8 @@ else
     endfunction
 
     " make a operator to count words
-    nmap <leader>c :set opfunc=CountWords<CR>g@
-    vmap <leader>c :<C-U>call CountWords(visualmode(), 1)<CR>
+    nnoremap <silent> <leader>c :set opfunc=CountWords<CR>g@
+    vnoremap <silent> <leader>c :<C-U>call CountWords(visualmode(), 1)<CR>
     function! CountWords(type, ...)
         let sel_save = &selection
         let &selection = "inclusive"
@@ -199,24 +199,64 @@ else
         let &selection = sel_save
     endfunction
 
-    " i want surround but i dont want the nice plugin cuase it sounds ez
-    nmap <leader>S[ :set opfunc=Surround<CR>g@
-
-    " ill figure this out later
-    function! Surround(type, ...)
+    " make a operator to turn camel case into snake case
+    nnoremap <silent> <leader>gs :set opfunc=SnakeCase<CR>g@
+    vnoremap <silent> <leader>gs :<C-U>call SnakeCase(visualmode(), 1)<CR>
+    function! SnakeCase(type, ...)
         let sel_save = &selection
         let &selection = "inclusive"
+        let regsave = @"
 
-        " if a:0  " Invoked from Visual mode, use gv command.
-        "     silent exe "normal! gvy"
-        " elseif a:type == 'line'
-        "     silent exe "normal! '[V']y"
-        " else
-        "     silent exe "normal! `[v`]y"
-        " endif
+        if a:0  " Invoked from Visual mode, use gv command.
+            silent exe "normal! gvy"
+        elseif a:type == 'line'
+            silent exe "normal! '[V']y"
+        else
+            silent exe "normal! `[v`]y"
+        endif
 
+        " insert an _ in front of the uppercase letter and lowercase it all
+        let @" = tolower(substitute(@", '\([[:upper:]]\+\)', '_\1', 'g'))
+        silent exe "normal! gvp"
+
+        let @" = regsave
         let &selection = sel_save
     endfunction
+    " make a operator to turn snake case into camel case
+    nnoremap <silent> <leader>gc :set opfunc=CamelCase<CR>g@
+    vnoremap <silent> <leader>gc :<C-U>call CamelCase(visualmode(), 1)<CR>
+    function! CamelCase(type, ...)
+        let sel_save = &selection
+        let &selection = "inclusive"
+        let regsave = @"
+
+        if a:0  " Invoked from Visual mode, use gv command.
+            silent exe "normal! gvy"
+        elseif a:type == 'line'
+            silent exe "normal! '[V']y"
+        else
+            silent exe "normal! `[v`]y"
+        endif
+
+        " NOTE all of this is better with a f_xgUl but i dont know how to
+        " restrict that to jsut the selected domain
+        " remove _ before caps letters if that exists
+        " get the string without the lowercase letter after the underscore
+        let underscore = substitute(substitute(@", '_\+\([[:upper:]]\)', '\1', 'g'), '_\+[[:lower:]]', '_', 'g')
+        " get a list of uppercase letters after _
+        let upperList = split(toupper(substitute(@", '[^_]*_\+\([[:lower:]]\)[^_]*', '\1', 'g')), '\zs')
+        " loop through the list and replace the _ with the char in the list
+        for c in upperList
+            let underscore = substitute(underscore, '_', c, '')
+        endfor
+        let @" = underscore
+        silent exe "normal! gvp"
+
+        let @" = regsave
+        let &selection = sel_save
+    endfunction
+
+    source ~/.config/nvim/surround.vim
 
     " toggle search highlights
     map <leader>H :setlocal hlsearch!<CR>
@@ -348,6 +388,7 @@ else
         " kinda not a great idea in a lot of circumstances anyways
         "autocmd InsertLeave *.ms silent! w
         autocmd BufWritePost *.ms silent! !eqnlabel.sh % | pdfroff - -et -ms > %.pdf &
+        "autocmd BufWritePost *.ms silent! !eqnlabel.sh % | groff - -e -t -Tpdf -ms > %.pdf &
     augroup END
 
 
