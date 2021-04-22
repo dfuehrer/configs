@@ -1,17 +1,7 @@
 #!/bin/bash
 # make a directory and cd into it
 cdmd () { mkdir $1 && cd $1; }
-# # just got this from the archwiki, it makes man have colors
-# # dont need it anymore cause i made a bash script that does this with search functionality
-# man () {
-# 	LESS_TERMCAP_md=$'\e[01;31m' \
-# 	LESS_TERMCAP_me=$'\e[0m' \
-# 	LESS_TERMCAP_se=$'\e[0m' \
-# 	LESS_TERMCAP_so=$'\e[01;44;33m' \
-# 	LESS_TERMCAP_ue=$'\e[0m' \
-# 	LESS_TERMCAP_us=$'\e[01;32m' \
-# 	command man "$@";
-# }
+
 # sort all printenv if no args but if args print out what works and then remove the uppercase and send all to upper and print that out (this should prevent overlap and make it so lowercase works for upper which is as case insensitive as i usually care about (if i want case insensitive i can just env | grep -i "$@"))
 pe () { [ -z "$1" ] && printenv | sort || { printenv "$@"; lower="$( echo "$@" | tr -d '[:upper:]' | tr '[:lower:]' '[:upper:]' )" && [ -n "$lower" ] && printenv $lower; }; }
 
@@ -23,19 +13,13 @@ which () {
 # TODO do i need this?
 export -f which
 
+# make it so i can cd with lf
+# TODO maybe try making this use a fifo file so i dont have to deal with using a real file
 lfcd () {
-    export FIFO_CD="$(mktemp -ut lf-cd.XXXXXXXXXX)"
-    mkfifo "$FIFO_CD"
-    cleanup() {
-        exec 3>&-
-        rm "$FIFO_CD"
-    }
-
-    while [ -e "$FIFO_CD" ]; do read -r dir; cd "$dir"; sleep 1; done < "$FIFO_CD" &
-    exec 3>"$FIFO_CD"
-    # TODO i dont know if this works for functions
+    CD="$(mktemp -t lf-cd.XXXXXXXXXX)"
+    cleanup() { rm -f "$CD"; }
     trap cleanup EXIT
 
-    # TODO figure out whats gonig on here
-    lf "$@" 3>&-
+    lf -last-dir-path="$CD" "$@"
+    [ -f "$CD" ] && dir=$(< "$CD") && [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
 }

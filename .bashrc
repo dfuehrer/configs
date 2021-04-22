@@ -26,12 +26,14 @@ shopt -s autocd
 . $XDG_DATA_HOME/code-minimap/completion.bash
 . /usr/share/bash-completion/completions/dkms
 # TODO this doesnt work unless normal printenv has been used for with tab completion before, the function doesnt exist untill then
-complete -F _printenv pe
+#complete -F _printenv pe
+complete -v pe
 complete -F _complete_alias config-git
 complete -F _complete_alias confg
 complete -F _complete_alias hi
 complete -F _complete_alias p
 complete -F _command tabbed
+complete -F _command setsid
 # dont need these casue theyre in my inputrc
 #bind '"\C-l": clear-screen'
 #set -o vi
