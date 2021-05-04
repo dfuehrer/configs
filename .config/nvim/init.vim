@@ -76,7 +76,9 @@ else
     " these need to go together, otherwise its just too long
     set showmatch matchtime=1
     " if theres a .exrc or .vimrc in the dir loaded then source it
-    set exrc
+    "yeah this is actually aweful cause sometimes i just want to open the file
+    "i told it to open, not the exrc
+    "set exrc
     " show whitespace (probably will remove)
     set list
     " options for menus, show menu if still only 1 option and dont insert

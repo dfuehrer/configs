@@ -24,11 +24,13 @@ super + alt + s
 #super + c
 #	$TABBED_TERMINAL -e calcurse -D ~/.config/calcurse
 #super + shift + a
-	#$TABBED_TERMINAL -e alsamixer; pkill -RTMIN+10 $STATUSBAR
+	#$TABBED_TERMINAL -e alsamixer; pkill -RTMIN+10 dwmblocks
 super + alt + m
     messaging
 ctrl + super + v
     open-screenshots
+ctrl + super + p
+    dunstctl set-paused toggle; pkill -RTMIN+20 dwmblocks
 #super + shift + c
 #	mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
 #super + shift + e
