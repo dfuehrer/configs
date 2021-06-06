@@ -101,9 +101,9 @@ function! SurroundSingleQuote(type, ...)
     let &selection = sel_save
 endfunction
 
-nnoremap <silent> <leader>S<Space> :set opfunc=SurroundSingleQuote<CR>g@
-vnoremap <silent> <leader>S<Space> :<C-U>call SurroundSingleQuote(visualmode(), 1)<CR>
-function! SurroundSingleQuote(type, ...)
+nnoremap <silent> <leader>S<Space> :set opfunc=SurroundSpace<CR>g@
+vnoremap <silent> <leader>S<Space> :<C-U>call SurroundSpace(visualmode(), 1)<CR>
+function! SurroundSpace(type, ...)
     let sel_save = &selection
     let &selection = "inclusive"
 

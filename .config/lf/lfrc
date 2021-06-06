@@ -1,5 +1,8 @@
 # this is just the normal lf config that is given as an example that ive added some lines to
 
+# TODO i need an undo feature
+# i dont know how on earth id do that
+
 # interpreter for shell commands (needs to be POSIX compatible)
 set shell sh
 
@@ -29,8 +32,11 @@ set tabstop 4
 
 # use enter for shell commands
 map <enter> shell
+# using ctrl+o for new dir for some reason, using % so it doesnt cover up the screen but it doesnt show my message
+map <c-o> %echo 'Enter directory name:' > /dev/stderr && read -p 'Enter directory name: ' dir && mkdir $dir
 # t opens a terminal (in this directory)
 map t &${TERMINAL:-st}
+# TODO figure out how to just set these sorting stuffs for this folder only, every time i enter
 map gdl :cd ~/Downloads; set sortby time; set reverse
 
 # execute current file (must be executable)
@@ -63,7 +69,6 @@ cmd open ${{
 
 # move current file or selected files to trash folder
 # (also see 'man mv' for backup/overwrite options)
-# TODO use rmt for this
 #cmd trash %set -f; mv $fx ~/.trash
 cmd trash %set -f; rmt $fx > /dev/null
 
