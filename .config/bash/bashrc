@@ -15,6 +15,10 @@ export HISTFILE=$XDG_CONFIG_HOME/bash/bash_history
 # ignore duplicated lines for history (dont go up through all of them) and ignore lines that start with a space
 export HISTCONTROL=ignoreboth
 
+# set the current semester path variable
+[ $(date +%-m) -ge 8 ] && { YEAR=$(date +%Y) && NYEAR=$(( $YEAR+1 )) && SEMESTER=Fall; } || { NYEAR=$(date +%Y) && YEAR=$(( $NYEAR-1 )) && SEMESTER=Spring; }
+export SCHWRK="$HOME/schoolWork/$YEAR-$NYEAR/${SEMESTER}Semester/"
+
 # cd into a directory without cd
 shopt -s autocd
 # get a thing to do completions with aliases

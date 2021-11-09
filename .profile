@@ -15,7 +15,7 @@ export SCRIPT_SHELL=/bin/sh
 export PAGER='less -R'
 export SUDO_ASKPASS=$HOME/.local/bin/scripts/dmenupass
 export XRESOURCES=$XDG_CONFIG_HOME/Xresources
-export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 export FZF_DEFAULT_OPTS='--layout=reverse --height=50%'
 export HIGHLIGHT_DATADIR=$XDG_CONFIG_HOME/highlight
 export INPUTRC=$XDG_CONFIG_HOME/inputrc
@@ -37,10 +37,11 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 export SCHWRK="$HOME/schoolWork/$YEAR-$NYEAR/${SEMESTER}Semester/"
 
 
-# TODO move this out of here
-if [ -f $XDG_CONFIG_HOME/bash/bash_alias ]; then
-    . $XDG_CONFIG_HOME/bash/bash_alias
-fi
+## TODO move this out of here
+#if [ -f $XDG_CONFIG_HOME/bash/bash_alias ]; then
+#    . $XDG_CONFIG_HOME/bash/bash_alias
+#fi
+alias bash='bash --rcfile $HOME/.config/bash/bashrc'
 
 
 # this is needed for mivcots so hopefully this works

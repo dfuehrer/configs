@@ -38,6 +38,7 @@ map <c-o> %echo 'Enter directory name:' > /dev/stderr && read -p 'Enter director
 map t &${TERMINAL:-st}
 # TODO figure out how to just set these sorting stuffs for this folder only, every time i enter
 map gdl :cd ~/Downloads; set sortby time; set reverse
+map gp :cd ~/Pictures/screenshots; set sortby time; set reverse
 
 # execute current file (must be executable)
 map x $$f
@@ -83,6 +84,7 @@ cmd trash %set -f; rmt $fx > /dev/null
 
 # TODO figure out how to get it to go to the current semester like i do with schwrk
 map gs cd ~/schoolWork/
+map gS !cd "$SCHWRK"
 
 map <m-up> up
 map <m-down> down

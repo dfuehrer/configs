@@ -20,7 +20,6 @@ alias ip='ip --color=auto'
 alias less='less -r'
 alias src='. ~/.bash_profile'
 alias kms='sudo shutdown now'
-alias env='env | sort'
 alias vc='vimcat'
 alias hi='highlight --out-format truecolor'
 alias e="$EDITOR -p"
@@ -34,7 +33,8 @@ alias p=pacman
 alias brep=bgrep
 alias ungron='gron --ungron'
 # uses a path set in the bashrc
-alias schwrk="cd $SCHWRK"
+alias schwrk="pushd $SCHWRK"
+alias scripts='pushd ~/.local/bin/scripts'
 alias eagle="QT_XCB_GL_INTEGRATION=xcb_egl eagle"
 alias se=dmenuedit
 alias gssh='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa'
@@ -44,3 +44,6 @@ alias nv='/usr/local/bin/nvim'
 alias nvim='/usr/bin/nvim'
 alias config-git='command git --git-dir=$HOME/gitstuffs/configs --work-tree=$HOME'
 alias confg=config-git
+alias pd=pushd
+alias pod=popd
+alias gdl='pushd ~/Downloads'

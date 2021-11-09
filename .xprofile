@@ -1,11 +1,15 @@
 #!/bin/sh
 export AWT_TOOLKIT=MToolkit
-setwall.sh -r
+setwall.sh -r &
+cpupercentServer &
+networkServer &
 dwmblocks &
 restartprocess.sh clipmenud &
 xbanish -i mod1 -i mod4 -i control &
-autoupdate sxhkd -rs SIGUSR1 &
-autoupdate "picom --experimental-backend" -rs SIGUSR1 &
+#autoupdate sxhkd -rs SIGUSR1 &
+#autoupdate "picom --experimental-backend" -rs SIGUSR1 &
+restartprocess.sh sxhkd -s SIGUSR1 &
+restartprocess.sh "picom --experimental-backend" -s SIGUSR1 &
 # TODO do a screen dimming thing before it just blacks
 xss-lock -- slock.sh -w &
 # set the xresources before moving on
