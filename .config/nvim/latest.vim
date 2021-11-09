@@ -20,5 +20,10 @@ nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
-lua require'lspconfig'.clangd.setup{ on_attach=require'completion'.on_attach }
-lua require'lspconfig'.pyright.setup{ on_attach=require'completion'.on_attach }
+augroup help
+    autocmd!
+    autocmd FileType help nunmap <c-]>
+augroup END
+
+lua require('lspconfig').clangd.setup{ on_attach=require'completion'.on_attach }
+lua require('lspconfig').pyright.setup{ on_attach=require'completion'.on_attach }

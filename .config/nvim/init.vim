@@ -61,9 +61,11 @@ else
     " TODO make this detect when this wont work like when in dvtm
     "   until then ill just get rid of it since it isnt doing a ton for me
     "   nevermind im adding it again
-    if exists('+termguicolors')
+    if exists('+termguicolors') && &term !~ '^dvtm'
         " 24bit color in tui
         set termguicolors
+    else
+        set notermguicolors
     endif
 
     " this is a section of things im trying but might delete
@@ -87,8 +89,11 @@ else
 
     " set fold with syntax, if its python i guess try to set it with indent
     set foldmethod=syntax
-    "autocmd BufRead *.py set foldmethod=indent
-    autocmd FileType python set foldmethod=indent
+    augroup pythonIndent
+        autocmd!
+        "autocmd BufRead *.py set foldmethod=indent
+        autocmd FileType python set foldmethod=indent
+    augroup END
     " then unset foldenable so that the folds arent shown but arent removed
     " this is still annoying but whatever
     set nofoldenable
@@ -265,7 +270,6 @@ else
     " set the search to nothing so that it goes away but i dont have to turn
     " highlights back on for next time
     map <leader>h :let @/ = ""<CR>
-    "map <leader>o :setlocal spell! spelllang=en_us<CR>
 
     " this is a kinda hacky fix since nvim doesnt have great integration with
     " the system clipboard, when release the left mouse button copy the
@@ -371,11 +375,12 @@ else
     vmap <C-/> gc
     vmap  gc
     nmap <leader>ut :UndotreeToggle<CR>
-    " someone mapped this but i want it for
+    " someone mapped this in coc i think but i want it for spellchecking
     silent! nunmap <leader>o
     " let me toggle spellchecking (it is pretty cool cuase it only works in
     " comments and strings and stuff in code)
     map <leader>o :setlocal spell! spelllang=en_us<CR>
+    map <leader>O :setlocal spell! spelllang=es_mx<CR>
     " leader+s chooses the first spell suggestion
     map <leader>s z=1<CR><CR>
 
@@ -393,7 +398,60 @@ else
         "autocmd BufWritePost *.ms silent! !eqnlabel.sh % | groff - -e -t -Tpdf -ms > %.pdf &
     augroup END
 
+    " function and mappings to insert 1 char
+    function! InsertOne(dir)
+        let l:save = @0
+        let @0 = nr2char(getchar())
+        exe 'normal "0' . a:dir
+        let @0 = l:save
+    endfunction
+    nnoremap gi :call InsertOne('P')<CR>
+    nnoremap ga :call InsertOne('p')<CR>
 
+
+    " this function allows for the sneak feature so you can go to a place on a
+    " line by just typing the section till it matches explicitly
+    function! SneakMaybe()
+        let l:char = ''
+        let l:toSearch = ''
+        " set a highlight to show where im searching
+        hi link sneakBSHighlight Visual
+        while l:char != "\<Esc>"
+            " get a char input from the user, append it to the search string
+            let l:char = nr2char(getchar())
+            "if l:char == "\<BS>"
+            "    let l:toSearch = strcharpart(l:toSearch, 0, strchars(l:toSearch) - 1)
+            "else
+            "    echomsg 'not bs: "' . l:char . '"'
+            "endif
+            let l:toSearch = l:toSearch . l:char
+            " search for the string and go to it (this line only)
+            let [l:lnum, l:col] = searchpos('\V' . l:toSearch, 'csz', line('.'))
+            " add a match to highlight the current position
+            let l:m = matchaddpos("sneakBSHighlight", [[l:lnum, l:col, strlen(l:toSearch)]])
+            "let l:m = matchadd("sneakBSHighlight", '\V' . l:toSearch)
+            " redraw the line so you see the highlight and then delete it
+            redraw
+            "call matchdelete(l:m)
+            " if we found no match or no match following this one exit
+            if l:lnum == 0
+                break
+            endif
+            let [l:lnum, l:col] = searchpos('\V' . l:toSearch, 'n', line('.'))
+            if l:lnum == 0
+                break
+            else
+                let l:m2 = matchaddpos("sneakBSHighlight", [[l:lnum, l:col, strlen(l:toSearch)]])
+                " redraw the line so you see the highlight and then delete it
+                redraw
+                call matchdelete(l:m2)
+            endif
+            call matchdelete(l:m)
+        endwhile
+        call matchdelete(l:m)
+        hi clear sneakBSHighlight
+    endfunction
+    nnoremap <silent> gs :call SneakMaybe()<CR>
 
 
     if has('nvim-0.5')
@@ -414,8 +472,12 @@ set swapfile directory=~/.cache/nvim/swap//
 
 
 " ctrl+backspace deletes a word
-imap <C-BS> <C-w>
-imap  <C-w>
+"imap <C-BS> <C-w>
+"imap <C-h> <C-w>
+imap <C-BS> <C-]><C-g>u<C-w>
+imap <C-h> <C-]><C-g>u<C-w>
+cmap <C-BS> <C-w>
+cmap <C-h> <C-w>
 " move between splits without ctrl+w
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -432,7 +494,7 @@ map GT gT
 " Gt uses relative numbers like gT cause gt is absolute
 map Gt @='gt'<CR>
 
-" do Y like C and D to the end of the line
+" do Y like C and D to the end of the line (why is this not in vi)
 map Y y$
 " write but dont quit
 map ZW :w<CR>
@@ -456,5 +518,5 @@ cabbrev src source $MYVIMRC
 "cabbrev fd filetype detect
 cabbrev taberc tabe $MYVIMRC
 cabbrev chmex !chmod u+x %
-cabbrev usecoc source ~/.config/nvim/coc.vim
+"cabbrev usecoc source ~/.config/nvim/coc.vim
 
