@@ -121,8 +121,8 @@ function! SurroundSpace(type, ...)
     let &selection = sel_save
 endfunction
 
-nnoremap <silent> <leader>S :set opfunc=SurroundAny<CR>g@
-vnoremap <silent> <leader>S :<C-U>call SurroundAny(visualmode(), 1)<CR>
+nnoremap <leader>S :set opfunc=SurroundAny<CR>g@
+vnoremap <leader>S :<C-U>call SurroundAny(visualmode(), 1)<CR>
 function! SurroundAny(type, ...)
     let sel_save = &selection
     let &selection = "inclusive"
@@ -152,13 +152,17 @@ function! SurroundAny(type, ...)
     "silent exe "normal! `<i" . l:printLeft . "\<Esc>`>l"
     "silent exe "normal! a" . l:printRight . "\<Esc>"
     "" turn on indent
+    echomsg '"' . l:printRight . '"'
+    let g:outputvar = '"' . l:printRight . '"'
 
     let l:zeroSave = @0
-    "let @0 = l:printLeft
-    silent exe "normal! :let @0 = l:printLeft\<CR>`<\"0P`>"
-    "let @0 = l:printRight
-    silent exe "normal! let @0 = l:printRight\<CR>\"0p"
+    let @0 = l:printLeft
+    exe "normal! `<\"0P`>"
+    let @0 = l:printRight
+    exe "normal! \"0p"
     let @0 = l:zeroSave
+
+    echomsg l:printLeft . l:printRight
 
     let &selection = sel_save
 endfunction
