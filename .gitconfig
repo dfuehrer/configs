@@ -1,7 +1,12 @@
 [user]
 	email = dfuehrer@email.arizona.edu
 	name = dfuehrer
+[diff]
+    tool = nvimdiff
+[difftool]
+    prompt = false
 [alias]
     lgg = log --decorate --graph --all --date-order
     lg = !git --no-pager log --decorate --graph --all --date-order --oneline -n 10
     co = checkout
+    dt = difftool
