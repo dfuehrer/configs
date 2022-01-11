@@ -46,7 +46,7 @@ complete -F _command setsid
 [[ -f $XDG_CONFIG_HOME/bash/bash_alias ]] && . $XDG_CONFIG_HOME/bash/bash_alias
 [[ -f $XDG_CONFIG_HOME/bash/bash_function ]] && . $XDG_CONFIG_HOME/bash/bash_function
 # set PS1 to have red [ orange username yellow @ green hostname *space* blue short folder red ]$ 
-PS1='\[\033[31m\][\[\033[38;5;208m\]\u\[\033[33m\]@\[\033[32m\]\h \[\033[34m\]\W\[\033[31m\]]\[\033(B\[\033[m\]$ '
+PS1='\[\033[31m\][\[\033[38;5;208m\]\u\[\033[33m\]@\[\033[32m\]\h \[\033[34m\]\W\[\033[31m\]]\[\033[0m\]$ '
 
 # append . to end of normal PATH from the .profile
 # this makes it so that if im in my bash shell and i try an executable in there that it cant find in the rest of my path itll check in my current directory

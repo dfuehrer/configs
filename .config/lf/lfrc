@@ -39,6 +39,7 @@ map t &${TERMINAL:-st}
 # TODO figure out how to just set these sorting stuffs for this folder only, every time i enter
 map gdl :cd ~/Downloads; set sortby time; set reverse
 map gp :cd ~/Pictures/screenshots; set sortby time; set reverse
+map gt :cd ~/.local/share/Trash; set sortby time; set reverse
 
 # execute current file (must be executable)
 map x $$f

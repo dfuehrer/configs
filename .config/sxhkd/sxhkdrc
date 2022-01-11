@@ -19,6 +19,10 @@ super + a
     TERM= dmenuedit
 super + alt + s
     xsel -po | xsel -bi
+ctrl {_,+ shift} + space
+    dunstctl close{_,-all}
+ctrl + grave
+    dunstctl history-pop
 #super + n
 #	$TABBED_TERMINAL -e newsboat
 #super + c

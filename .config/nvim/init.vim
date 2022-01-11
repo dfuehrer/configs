@@ -53,8 +53,11 @@ else
     " in command mode tab complete by completing as much as possible then pull up
     " a thing
     set wildmode=longest,full
-    " dont unload buffers that arent seen
-    "set hidden
+    " unload buffers that are closed
+    " (i want it to complain when i accidently do :q on the buffer im editing)
+    set nohidden
+    " use 2 spaces for sentences, why nvim do this to me
+    set joinspaces
     " dont ring at me
     set noerrorbells
     set novisualbell
@@ -86,6 +89,7 @@ else
     " options for menus, show menu if still only 1 option and dont insert
     " automag
     set completeopt=menuone,longest,preview
+    set complete+=kspell
 
     " set fold with syntax, if its python i guess try to set it with indent
     set foldmethod=syntax
@@ -98,7 +102,8 @@ else
     " this is still annoying but whatever
     set nofoldenable
 
-    map <leader>d :set digraph!
+    " digraphs are for inserting characters i dont need to insert
+    map <leader>d :set digraph<CR>
     " alt+r does mode to reset the screen if it gets screwed up
     map <M-R> :mode<CR>
     " tabs move tabs
@@ -394,8 +399,14 @@ else
         " it save when i exit insert mode but it doesnt work like that and its
         " kinda not a great idea in a lot of circumstances anyways
         "autocmd InsertLeave *.ms silent! w
-        autocmd BufWritePost *.ms silent! !eqnlabel.sh % | pdfroff - -et -ms > %.pdf &
+        autocmd BufWritePost *.ms !eqnlabel.sh % | pdfroff - -est -ms -I"$(dirname %)" > %.pdf &
         "autocmd BufWritePost *.ms silent! !eqnlabel.sh % | groff - -e -t -Tpdf -ms > %.pdf &
+    augroup END
+    " map some things for markdown files
+    augroup markdown
+        autocmd!
+        autocmd FileType markdown silent! nunmap <leader>C|map <leader>C o- [ ] 
+        autocmd FileType markdown silent! iunmap <C-g>C|imap <C-g>C <CR>- [ ] 
     augroup END
 
     " function and mappings to insert 1 char
@@ -452,9 +463,10 @@ else
         hi clear sneakBSHighlight
     endfunction
     nnoremap <silent> gs :call SneakMaybe()<CR>
+    "omap <silent> gs :<C-u>normal! m`gsv``<CR>
 
 
-    if has('nvim-0.5')
+    if has('nvim-0.5dev')
         source ~/.config/nvim/latest.vim
     endif
 
@@ -493,6 +505,10 @@ nnoremap GG G
 map GT gT
 " Gt uses relative numbers like gT cause gt is absolute
 map Gt @='gt'<CR>
+" gb for goto byte to do what go did
+nnoremap gb go
+" go to goto the other side of the previously highlighted section
+nnoremap go gvo<Esc>
 
 " do Y like C and D to the end of the line (why is this not in vi)
 map Y y$
