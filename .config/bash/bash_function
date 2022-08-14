@@ -1,6 +1,7 @@
 #!/bin/bash
 # make a directory and cd into it
 cdmd () { mkdir -p $1 && cd $1; }
+pdmd () { mkdir -p $1 && pushd $1; }
 
 # sort all printenv if no args but if args print out what works and then remove the uppercase and send all to upper and print that out (this should prevent overlap and make it so lowercase works for upper which is as case insensitive as i usually care about (if i want case insensitive i can just env | grep -i "$@"))
 pe () { [ -z "$1" ] && printenv | sort || { printenv "$@"; lower="$( echo "$@" | tr -d '[:upper:]' | tr '[:lower:]' '[:upper:]' )" && [ -n "$lower" ] && printenv $lower; }; }

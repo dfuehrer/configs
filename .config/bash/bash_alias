@@ -26,6 +26,8 @@ alias e="$EDITOR -p"
 alias psuf="ps -u $USER f"
 alias pi=pacinstall
 alias nvim-qt='nvim-qt --no-ext-tabline --no-ext-popupmenu'
+alias findf='find -name'
+alias finf='findf'
 # these are hardcoded personal locations for my windows drive
 alias mwin='sudo mount /dev/nvme1n1p3 /mnt/win'
 alias umwin='sudo umount /mnt/win'

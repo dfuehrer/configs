@@ -29,9 +29,13 @@ shopt -s autocd
 . /usr/share/doc/pkgfile/command-not-found.bash
 . $XDG_DATA_HOME/code-minimap/completion.bash
 . /usr/share/bash-completion/completions/dkms
+. $XDG_CONFIG_HOME/bash/arduino_completion.sh
+. <(starship completions bash)
 # TODO this doesnt work unless normal printenv has been used for with tab completion before, the function doesnt exist untill then
 #complete -F _printenv pe
 complete -v pe
+complete -v export
+complete -c doas
 complete -F _complete_alias config-git
 complete -F _complete_alias confg
 complete -F _complete_alias hi
@@ -46,7 +50,8 @@ complete -F _command setsid
 [[ -f $XDG_CONFIG_HOME/bash/bash_alias ]] && . $XDG_CONFIG_HOME/bash/bash_alias
 [[ -f $XDG_CONFIG_HOME/bash/bash_function ]] && . $XDG_CONFIG_HOME/bash/bash_function
 # set PS1 to have red [ orange username yellow @ green hostname *space* blue short folder red ]$ 
-PS1='\[\033[31m\][\[\033[38;5;208m\]\u\[\033[33m\]@\[\033[32m\]\h \[\033[34m\]\W\[\033[31m\]]\[\033[0m\]$ '
+PS1='\[\033[31m\][\[\033[38;5;208m\]\u\[\033[33m\]@\[\033[32m\]\h \[\033[34m\]\W\[\033[31m\]]\[\033[0m\]\$ '
+eval "$(starship init bash)"
 
 # append . to end of normal PATH from the .profile
 # this makes it so that if im in my bash shell and i try an executable in there that it cant find in the rest of my path itll check in my current directory

@@ -24,7 +24,7 @@ else
     set shiftwidth=4 tabstop=4 softtabstop=4
     " TODO add in arduino libraries or something
     " the ** should do expanding things to let me search subdirectories
-    set path=.,**
+    set path+=**
     " create splits below and right not above and left
     set splitright splitbelow
     " let me use mouse but not in insert mode
@@ -101,6 +101,8 @@ else
     " then unset foldenable so that the folds arent shown but arent removed
     " this is still annoying but whatever
     set nofoldenable
+    " dont show me whitespace in diffs
+    set diffopt+=vertical,iwhite
 
     " digraphs are for inserting characters i dont need to insert
     map <leader>d :set digraph<CR>
@@ -411,13 +413,10 @@ else
 
     " function and mappings to insert 1 char
     function! InsertOne(dir)
-        let l:save = @0
-        let @0 = nr2char(getchar())
-        exe 'normal "0' . a:dir
-        let @0 = l:save
+        exe 'normal! ' . a:dir . nr2char(getchar())
     endfunction
-    nnoremap gi :call InsertOne('P')<CR>
-    nnoremap ga :call InsertOne('p')<CR>
+    nnoremap gi :call InsertOne('i')<CR>
+    nnoremap ga :call InsertOne('a')<CR>
 
 
     " this function allows for the sneak feature so you can go to a place on a
@@ -466,7 +465,9 @@ else
     "omap <silent> gs :<C-u>normal! m`gsv``<CR>
 
 
-    if has('nvim-0.5dev')
+    " TODO figure out how to limit this to the dev build (right now i just
+    " increased it to the current 0.7
+    if has('nvim-0.7dev')
         source ~/.config/nvim/latest.vim
     endif
 

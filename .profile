@@ -30,6 +30,7 @@ export DVTM_PAGER='less -R'
 export BAT_THEME=code-dark
 export UCOLLAGE_RESIZE=1
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 
 # set the current semester path variable
