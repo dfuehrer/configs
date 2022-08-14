@@ -1,0 +1,50 @@
+format = "$all"
+right_format = "$cmd_duration$time"
+
+# Inserts a blank line between shell prompts
+add_newline = false
+command_timeout = 50
+#scan_timeout = 20
+
+
+# dont do multiline prompts
+[line_break]
+disabled = true
+
+[fill]
+symbol = " "
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                             # The name of the module we are configuring is "character"
+success_symbol = "[➜ ](green)"          # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[->](bold red)"              # making the failure symbol be the basic -> for a little distinction
+vicmd_symbol = '[\[\]](gray)'
+
+[cmd_duration]
+min_time = 1000
+style = "gray"
+show_milliseconds = true
+format = "└>[$duration]($style) "
+min_time_to_notify = 36000
+show_notifications = true
+
+[memory_usage]
+disabled = false
+threshold = 80
+
+[sudo]
+format = "[$symbol]($style)"
+#disabled = false
+
+[directory]
+style = "blue"
+
+[time]
+disabled = false
+format = "[$time]($style)"
+style = "white"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+

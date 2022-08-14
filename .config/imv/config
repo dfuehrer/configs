@@ -1,0 +1,4 @@
+[binds]
+<Shift+P> = print
+n = next
+p = prev

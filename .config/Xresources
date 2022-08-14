@@ -1,0 +1,4 @@
+*.background: #101010
+*.foreground: #A0A0A0
+*.font: UbuntuMono:size=10
+XTerm.vt100.faceName: Ubuntu Mono Nerd Font*:size=12

@@ -1,0 +1,16 @@
+{
+    "C_Cpp.updateChannel": "Insiders",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.languageServer": "Microsoft",
+    "editor.lineNumbers": "relative",
+    "vscode-neovim.mouseSelectionStartVisualMode": true,
+    "vscode-neovim.neovimExecutablePaths.linux": "/home/dfuehrer/Downloads/nvim.appimage",
+    "python.dataScience.sendSelectionToInteractiveWindow": true,
+    "editor.fontFamily": "'UbuntuMono Nerd Font', 'monospace', monospace, 'Droid Sans Mono', 'Droid Sans Fallback'",
+    "editor.fontSize": 16,
+    "editor.tabCompletion": "on",
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/dfuehrer/.config/nvim/init.vim",
+    "window.menuBarVisibility": "toggle",
+    "security.workspace.trust.untrustedFiles": "open"
+}

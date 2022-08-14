@@ -1,0 +1,20 @@
+[Added Associations]
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
+image/x-xfig=org.octave.Octave.desktop;
+model/stl=blender.desktop;
+image/jpeg=userapp-sxiva-NW0WR0.desktop;
+application/x-shellscript=nvim.desktop;
+application/xhtml+xml=brave-browser.desktop;
+
+[Default Applications]
+image/png=userapp-sxiva-NW0WR0.desktop
+application/pdf=org.pwmt.zathura.desktop
+inode/directory=pcmanfm.desktop
+application/postscript=org.pwmt.zathura.desktop
+x-scheme-handler/discord-492484203435393035=discord-492484203435393035.desktop
+application/json=code-oss.desktop
+image/gif=userapp-sxiva-NW0WR0.desktop
+x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/mailspring=Mailspring.desktop
+x-scheme-handler/lbry=lbry.desktop
+text=nvim.desktop

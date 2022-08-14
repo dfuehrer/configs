@@ -1,0 +1,43 @@
+$include /etc/inputrc
+set editing-mode vi
+$if mode=vi
+    $if Octave
+        # if in octave and term is xterm then you might be in the gui which cant handle these mode showing prompts so just turn it off, works everywhere else (if in xterm and octave it will be less good but i prefer alacritty and st so i think ill survive)
+        $if term=xterm
+            set show-mode-in-prompt off
+        $endif
+    $else
+        set show-mode-in-prompt on
+        set vi-ins-mode-string \1\e[6 q\2
+        set vi-cmd-mode-string \1\e[2 q\2
+
+    $endif
+
+    set keymap vi-command
+    Control-l: clear-screen
+    Control-a: beginning-of-line
+
+    set keymap vi-insert
+    Control-l: clear-screen
+    Control-a: beginning-of-line
+    Control-k: kill-line
+    #Control-Rubout: backward-kill-word
+    #Control-x: backward-kill-word
+    Control-h: backward-kill-word
+    #Control-Meta-Rubout: backward-kill-word
+    Del: delete-char
+    Meta-d: kill-word
+    Control-DEL: kill-word
+    #set convert-meta Off
+    # Meta-`: prefix-meta
+    # Control-[: vi-movement-mode
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+$endif
+$if term=st
+    set enable-keypad On
+$endif
+$if term=dvtm
+    # TODO i dont think this is doing anything
+    set enable-keypad On
+$endif
