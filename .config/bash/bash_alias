@@ -46,6 +46,8 @@ alias nv='/usr/local/bin/nvim'
 alias nvim='/usr/bin/nvim'
 alias config-git='command git --git-dir=$HOME/gitstuffs/configs --work-tree=$HOME'
 alias confg=config-git
+alias sys-config-git='command git --git-dir=$HOME/gitstuffs/sys-configs --work-tree=/'
+alias sconfg=sys-config-git
 alias pd=pushd
 alias pod=popd
 alias gdl='pushd ~/Downloads'

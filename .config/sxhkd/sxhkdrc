@@ -94,12 +94,14 @@ XF86MonBrightnessUp
 	backlight --inc
 
 # keybindings to get around not having pgup and pgdown on my laptop
-shift + Pause
-    xkev -s -e Page_Up && notify-send up
-    #xte "keydown Shift_L" "keydown Page_Up" "keyup Page_Up" "keyup Shift_L"
-shift + Print
-    xkev -s -e Page_Down && notify-send down
-    #xte "keydown Shift_L" "keydown Page_Down" "keyup Page_Down" "keyup Shift_L"
+#shift + Pause
+#    xdotool key shift+Page_Up
+#    #xkev -s -e Page_Up && notify-send up
+#    #xte "keydown Shift_L" "keydown Page_Up" "keyup Page_Up" "keyup Shift_L"
+#shift + Print
+#    xdotool key shift+Page_Down
+#    #xkev -s -e Page_Down && notify-send down
+#    #xte "keydown Shift_L" "keydown Page_Down" "keyup Page_Down" "keyup Shift_L"
 
 # Take screenshot
 alt + {_,shift} + Print
