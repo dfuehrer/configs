@@ -1,0 +1,3 @@
+termcapinfo xterm* ti@:te@
+termcapinfo alacritty* ti@:te@
+scrollback 10000
