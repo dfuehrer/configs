@@ -12,3 +12,7 @@
     lg = !git --no-pager log --decorate --graph --all --date-order --oneline -n 10
     co = checkout
     dt = difftool
+    mt = mergetool
+    sdif = diff --staged
+    sdiff = sdif
+    sdt = difftool --staged

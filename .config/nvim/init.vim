@@ -185,8 +185,9 @@ else
             silent exe "normal! `[v`]y"
         endif
         " i doubt exe does anything for me here but
-        exe "let @/ = @\""
-        exe "normal! /<CR>"
+        "let @/ = "\\V" . substitute(@", "\\", "\\\\\\\\", "g")
+        let @/ = "\\V" . substitute(substitute(@", "\\", "\\\\\\\\", "g"), "\<C-j>", "\\\\n", "g")
+        "exe "normal! /<CR>"
 
         let &selection = sel_save
     endfunction
@@ -365,7 +366,7 @@ else
     colorscheme codedark
     set background=dark
 
-    " show the color in the background of the symbols surronding the thing not
+
     " in a box on the side or full background
     "let g:Hexokinase_highlighters = ['background']
     let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
