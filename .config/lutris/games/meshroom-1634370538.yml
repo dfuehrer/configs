@@ -1,0 +1,6 @@
+game:
+  exe: /usr/share/meshroom-bin/Meshroom
+linux: {}
+system:
+  env: {}
+  prime: true

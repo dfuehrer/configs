@@ -1,0 +1,5 @@
+game:
+  exe: freedoom2
+linux: {}
+system:
+  prime: true

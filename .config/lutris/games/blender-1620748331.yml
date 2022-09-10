@@ -1,0 +1,6 @@
+game:
+  exe: blender
+linux: {}
+system:
+  disable_compositor: false
+  disable_screen_saver: false

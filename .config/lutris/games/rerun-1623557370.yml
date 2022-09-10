@@ -1,0 +1,5 @@
+game:
+  exe: /home/dfuehrer/Downloads/rerun/RERUN_linux.x86_64
+linux: {}
+system:
+  mangohud: gl64

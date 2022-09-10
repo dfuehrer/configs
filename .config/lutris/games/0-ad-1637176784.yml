@@ -1,0 +1,5 @@
+game:
+  exe: 0ad
+linux: {}
+system:
+  mangohud: ''

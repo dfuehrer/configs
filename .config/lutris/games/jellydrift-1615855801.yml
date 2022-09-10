@@ -1,0 +1,6 @@
+game:
+  exe: /home/dfuehrer/Downloads/jellydrift/JellyDriftLinux.x86_64
+linux: {}
+system:
+  mangohud: gl64
+  prime: true

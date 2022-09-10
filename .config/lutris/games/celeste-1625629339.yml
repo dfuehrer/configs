@@ -1,0 +1,6 @@
+game:
+  exe: /home/dfuehrer/Downloads/celeste/Celeste
+linux: {}
+system:
+  mangohud: gl64
+  prime: false

@@ -1,0 +1,6 @@
+game:
+  exe: /home/dfuehrer/Games/gog/Superliminal/start.sh
+linux: {}
+system:
+  limit_cpu_count: '8'
+  mangohud: true

@@ -1,0 +1,9 @@
+game:
+  args: -multithreaded
+  exe: vdrift
+linux: {}
+system:
+  env:
+    MANGOHUD: '1'
+    MANGOHUD_DLSYM: '1'
+  prefix_command: mangohud

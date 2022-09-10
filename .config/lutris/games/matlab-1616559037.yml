@@ -1,0 +1,6 @@
+game:
+  args: -debug -nosoftwareopengl
+  exe: matlab
+linux: {}
+system:
+  disable_screen_saver: false

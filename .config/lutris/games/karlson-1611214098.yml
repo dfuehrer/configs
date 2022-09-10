@@ -1,0 +1,7 @@
+game:
+  exe: /home/dfuehrer/Downloads/Karlson_Linux/Karlson_linux.x86_64
+linux: {}
+system:
+  dri_prime: true
+  mangohud: gl64
+  prime: true

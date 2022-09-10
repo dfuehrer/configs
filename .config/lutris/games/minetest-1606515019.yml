@@ -1,0 +1,5 @@
+game:
+  exe: minetest
+linux: {}
+system:
+  mangohud: gl64
