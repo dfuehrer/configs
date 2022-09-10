@@ -345,7 +345,7 @@ else
     Plug 'terryma/vim-multiple-cursors'
     "Plug 'severin-lemaignan/vim-minimap'
     "Plug 'ThePrimeagen/vim-be-good'
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    "Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'mbbill/undotree'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
