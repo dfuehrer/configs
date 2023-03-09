@@ -39,7 +39,7 @@ alias schwrk="pushd $SCHWRK"
 alias scripts='pushd ~/.local/bin/scripts'
 alias eagle="QT_XCB_GL_INTEGRATION=xcb_egl eagle"
 alias se=dmenuedit
-alias gssh='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa'
+alias gssh='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 alias lf=lfrun
 # nv points to my dev version of nvim, nvim points to the stable one in the repos
 alias nv='/usr/local/bin/nvim'

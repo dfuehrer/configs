@@ -1,8 +1,7 @@
 system:
   aco: true
   disable_compositor: true
-  env:
-    MANGOHUD: '1'
+  env: {}
   gamemode: true
   prime: true
   terminal_app: /usr/bin/alacritty

@@ -1,6 +1,0 @@
-game:
-  exe: /home/dfuehrer/Games/gog/Hollow Knight/start.sh
-linux: {}
-system:
-  game_path: ~/Games
-  mangohud: vk64

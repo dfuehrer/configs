@@ -98,6 +98,10 @@ else
         "autocmd BufRead *.py set foldmethod=indent
         autocmd FileType python set foldmethod=indent
     augroup END
+    augroup csv
+        autocmd!
+        autocmd FileType csv set formatprg=pandoc\ -f\ csv\ -t\ markdown
+    augroup END
     " then unset foldenable so that the folds arent shown but arent removed
     " this is still annoying but whatever
     set nofoldenable
@@ -336,7 +340,7 @@ else
     " minimap i dont know how to make work (got a new one but it req nvim 0.5)
     call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-afterimage'
-    Plug 'tpope/vim-commentary'
+    "Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
     Plug 'tomasiser/vim-code-dark'
     "Plug 'ap/vim-css-color'
@@ -344,7 +348,7 @@ else
     Plug 'itchyny/lightline.vim'
     Plug 'terryma/vim-multiple-cursors'
     "Plug 'severin-lemaignan/vim-minimap'
-    "Plug 'ThePrimeagen/vim-be-good'
+    Plug 'ThePrimeagen/vim-be-good'
     "Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'mbbill/undotree'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -358,6 +362,8 @@ else
         Plug 'nvim-lua/plenary.nvim'
         Plug 'nvim-telescope/telescope.nvim'
         Plug 'nvim-telescope/telescope-fzy-native.nvim'
+        Plug 'nvim-treesitter/nvim-treesitter'
+        Plug 'nvim-treesitter/playground'
     endif
 
     call plug#end()
@@ -468,8 +474,9 @@ else
 
     " TODO figure out how to limit this to the dev build (right now i just
     " increased it to the current 0.7
-    if has('nvim-0.7dev')
+    if has('nvim-0.9dev')
         source ~/.config/nvim/latest.vim
+        lua require('lsp')
     endif
 
 

@@ -1,9 +1,0 @@
-game:
-  args: ''
-  exe: xonotic-glx
-linux: {}
-system:
-  env:
-    MANGOHUD_DLSYM: '1'
-  prefix_command: mangohud
-  prime: false

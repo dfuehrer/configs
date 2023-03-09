@@ -12,5 +12,6 @@
     "editor.tabCompletion": "on",
     "vscode-neovim.neovimInitVimPaths.linux": "/home/dfuehrer/.config/nvim/init.vim",
     "window.menuBarVisibility": "toggle",
-    "security.workspace.trust.untrustedFiles": "open"
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.colorTheme": "Default Dark+"
 }

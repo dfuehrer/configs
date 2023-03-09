@@ -31,6 +31,7 @@ shopt -s autocd
 . /usr/share/bash-completion/completions/dkms
 . $XDG_CONFIG_HOME/bash/arduino_completion.sh
 . <(starship completions bash)
+. <(rustup completions bash)
 # TODO this doesnt work unless normal printenv has been used for with tab completion before, the function doesnt exist untill then
 #complete -F _printenv pe
 complete -v pe
@@ -60,3 +61,4 @@ eval "$(starship init bash)"
 export PATH="$PATH:."
 
 . /home/dfuehrer/.config/broot/launcher/bash/br
+. "/home/dfuehrer/.local/share/cargo/env"

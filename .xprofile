@@ -1,5 +1,7 @@
 #!/bin/sh
 export AWT_TOOLKIT=MToolkit
+export QT_QPA_PLATFORMTHEME=qt5ct
+set_monitors.sh
 setwall.sh -r &
 cpupercentServer &
 networkServer &

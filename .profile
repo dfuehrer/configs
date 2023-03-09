@@ -1,4 +1,4 @@
-export PROFILE_VERSION=2
+export PROFILE_VERSION=3
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
@@ -31,6 +31,8 @@ export BAT_THEME=code-dark
 export UCOLLAGE_RESIZE=1
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
 
 # set the current semester path variable
@@ -42,8 +44,9 @@ export SCHWRK="$HOME/schoolWork/$YEAR-$NYEAR/${SEMESTER}Semester/"
 #if [ -f $XDG_CONFIG_HOME/bash/bash_alias ]; then
 #    . $XDG_CONFIG_HOME/bash/bash_alias
 #fi
-alias bash='bash --rcfile $HOME/.config/bash/bashrc'
+alias bash='bash --rcfile $XDG_CONFIG_HOME/bash/bashrc'
 
 
 # this is needed for mivcots so hopefully this works
 export MivcotsResources=$HOME/gitstuffs/MIVCOTS-Public/projects/mivcots/Resources/
+. "/home/dfuehrer/.local/share/cargo/env"
