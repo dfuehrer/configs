@@ -11,7 +11,7 @@ profile_version="$(sed -n 's/export PROFILE_VERSION=\(.\+\)/\1/p' ~/.profile)"
 [[ $- != *i* ]] && return
 
 # move my bash history (i dont think this worked)
-export HISTFILE=$XDG_CONFIG_HOME/bash/bash_history
+export HISTFILE=$XDG_CACHE_HOME/bash/bash_history
 # ignore duplicated lines for history (dont go up through all of them) and ignore lines that start with a space
 export HISTCONTROL=ignoreboth
 
@@ -26,13 +26,19 @@ shopt -s autocd
 # get general bash completions, git completions, and let me know if i need to get a specific package to run that command
 . /usr/share/bash-completion/bash_completion
 . /usr/share/git/completion/git-completion.bash
+. /usr/share/bash-completion/completions/pass
 . /usr/share/doc/pkgfile/command-not-found.bash
-. $XDG_DATA_HOME/code-minimap/completion.bash
 . /usr/share/bash-completion/completions/dkms
-. $XDG_CONFIG_HOME/bash/arduino_completion.sh
-. <(starship completions bash)
-. <(rustup completions bash)
-# TODO this doesnt work unless normal printenv has been used for with tab completion before, the function doesnt exist untill then
+#. <(arduino-cli completion bash)
+#. <(code-minimap completion bash)
+#. <(starship completions bash)
+#. <(rustup completions bash)
+make -C $XDG_CACHE_HOME/bash/completion > /dev/null 2>&1
+. $XDG_CACHE_HOME/bash/completion/arduino-cli.sh
+. $XDG_CACHE_HOME/bash/completion/code-minimap.sh
+. $XDG_CACHE_HOME/bash/completion/starship.sh
+. $XDG_CACHE_HOME/bash/completion/rustup.sh
+# TODO this doesnt work unless normal printenv has been used for with tab completion before, the function doesnt exist until then
 #complete -F _printenv pe
 complete -v pe
 complete -v export
@@ -58,7 +64,8 @@ eval "$(starship init bash)"
 
 # append . to end of normal PATH from the .profile
 # this makes it so that if im in my bash shell and i try an executable in there that it cant find in the rest of my path itll check in my current directory
-export PATH="$PATH:."
+# actually this is a bad idea
+#export PATH="$PATH:."
 
-. /home/dfuehrer/.config/broot/launcher/bash/br
-. "/home/dfuehrer/.local/share/cargo/env"
+. $XDG_CONFIG_HOME/broot/launcher/bash/br
+. "$XDG_DATA_HOME/cargo/env"

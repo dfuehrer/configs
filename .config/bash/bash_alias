@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias bash='bash --rcfile $HOME/.config/bash/bashrc'
+alias bash='bash --rcfile "$BASH_ENV"'
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias lA='ls -A'
@@ -42,7 +42,7 @@ alias se=dmenuedit
 alias gssh='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 alias lf=lfrun
 # nv points to my dev version of nvim, nvim points to the stable one in the repos
-alias nv='/usr/local/bin/nvim'
+alias nv='/usr/local/bin/nvim -p'
 alias nvim='/usr/bin/nvim'
 alias config-git='command git --git-dir=$HOME/gitstuffs/configs --work-tree=$HOME'
 alias confg=config-git
