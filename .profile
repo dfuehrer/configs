@@ -1,8 +1,11 @@
-export PROFILE_VERSION=3
+export PROFILE_VERSION=5
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export PATH=$HOME/.local/bin/scripts:$HOME/.local/bin:$PATH:$XDG_CONFIG_HOME/emacs/bin/
+#export PREFIX="${XDG_DATA_HOME%/*}"
+export DESTDIR="$HOME"
+export PREFIX=/.local
 # well i wanted to do nvim -p so i could easily have it just open in new tabs but things had issues casue 'nvim -p' isnt a command
 export EDITOR=/usr/bin/nvim
 export TERMINAL=alacritty
@@ -13,6 +16,7 @@ export BASH_ENV=$XDG_CONFIG_HOME/bash/bashrc
 #export SHELL="/bin/bash --rcfile $BASH_ENV"
 export SCRIPT_SHELL=/bin/sh
 export PAGER='less -R'
+export MANPATH=$XDG_DATA_HOME/man:$MANPATH
 export SUDO_ASKPASS=$HOME/.local/bin/scripts/dmenupass
 export XRESOURCES=$XDG_CONFIG_HOME/Xresources
 #export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
@@ -21,6 +25,8 @@ export HIGHLIGHT_DATADIR=$XDG_CONFIG_HOME/highlight
 export INPUTRC=$XDG_CONFIG_HOME/inputrc
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export GOPATH=$XDG_DATA_HOME/go
+export GOMODPATH=$GOPATH/mod
+export GOCACHE=$XDG_CACHE_HOME/go-build
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
@@ -44,9 +50,9 @@ export SCHWRK="$HOME/schoolWork/$YEAR-$NYEAR/${SEMESTER}Semester/"
 #if [ -f $XDG_CONFIG_HOME/bash/bash_alias ]; then
 #    . $XDG_CONFIG_HOME/bash/bash_alias
 #fi
-alias bash='bash --rcfile $XDG_CONFIG_HOME/bash/bashrc'
+alias bash='bash --rcfile "$BASH_ENV"'
 
 
 # this is needed for mivcots so hopefully this works
 export MivcotsResources=$HOME/gitstuffs/MIVCOTS-Public/projects/mivcots/Resources/
-. "/home/dfuehrer/.local/share/cargo/env"
+. "${CARGO_HOME}/env"

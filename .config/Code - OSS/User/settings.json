@@ -5,13 +5,12 @@
     "python.languageServer": "Microsoft",
     "editor.lineNumbers": "relative",
     "vscode-neovim.mouseSelectionStartVisualMode": true,
-    "vscode-neovim.neovimExecutablePaths.linux": "/home/dfuehrer/Downloads/nvim.appimage",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
     "python.dataScience.sendSelectionToInteractiveWindow": true,
     "editor.fontFamily": "'UbuntuMono Nerd Font', 'monospace', monospace, 'Droid Sans Mono', 'Droid Sans Fallback'",
     "editor.fontSize": 16,
     "editor.tabCompletion": "on",
     "vscode-neovim.neovimInitVimPaths.linux": "/home/dfuehrer/.config/nvim/init.vim",
     "window.menuBarVisibility": "toggle",
-    "security.workspace.trust.untrustedFiles": "open",
-    "workbench.colorTheme": "Default Dark+"
+    "security.workspace.trust.untrustedFiles": "open"
 }

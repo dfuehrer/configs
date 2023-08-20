@@ -21,8 +21,8 @@ super + alt + s
     xsel -po | xsel -bi
 #ctrl {_,+ shift} + space
 #    dunstctl close{_,-all}
-ctrl + space
-    dunstctl close
+#ctrl + space
+#    dunstctl close
 ctrl + grave
     dunstctl history-pop
 #super + n
@@ -58,7 +58,8 @@ ctrl + super + a
 super + e
 	nemo
 super + shift + e
-	$TERMINAL -e lfrun
+    lfterm.sh
+	#$TERMINAL -e lfrun
 
 # Et cetera...
 #super + grave

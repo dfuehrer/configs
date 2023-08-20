@@ -16,3 +16,4 @@
     sdif = diff --staged
     sdiff = sdif
     sdt = difftool --staged
+    delta = !git diff | delta -s
