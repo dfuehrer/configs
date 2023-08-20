@@ -3,8 +3,8 @@ let mapleader=' '
 
 if exists('g:vscode')
     " VSCode extension
-    map <M-J> :call VSCodeCall('editor.action.moveLinesUpAction')
-    map <M-K> :call VSCodeCall('editor.action.moveLinesDownAction')
+    map <M-J> :call VSCodeCall('editor.action.moveLinesUpAction')<CR>
+    map <M-K> :call VSCodeCall('editor.action.moveLinesDownAction')<CR>
     set incsearch hlsearch
     set ignorecase smartcase
 else
@@ -29,7 +29,9 @@ else
     set splitright splitbelow
     " let me use mouse but not in insert mode
     " can be annoying but wont let touchpad mess me up
-    set mouse=nvc
+    " TODO only set to nvc instead of a on laptop
+    "set mouse=nvc
+    set mouse=a
     " when doing big combined moves dont draw everything for speed
     set lazyredraw
     " if a line is super long show as much as you can rather than nothing
@@ -58,6 +60,8 @@ else
     set nohidden
     " use 2 spaces for sentences, why nvim do this to me
     set joinspaces
+    " give me back the normal right click
+    set mousemodel=extend
     " dont ring at me
     set noerrorbells
     set novisualbell
@@ -86,6 +90,7 @@ else
     "set exrc
     " show whitespace (probably will remove)
     set list
+    set listchars=tab:>_,trail:-,nbsp:+
     " options for menus, show menu if still only 1 option and dont insert
     " automag
     set completeopt=menuone,longest,preview
@@ -173,8 +178,8 @@ else
 
 
     " make a operator for ^s that searches the object or selection
-    nnoremap <silent> <C-s> :set opfunc=FindSel<CR>g@
-    vnoremap <silent> <C-s> :<C-U>call FindSel(visualmode(), 1)<CR>
+    nnoremap <silent> g* :set opfunc=FindSel<CR>g@
+    vnoremap <silent> g* :<C-U>call FindSel(visualmode(), 1)<CR>
     " this function searches the object by yanking it and setting the / register
     " to that yank and calling /<CR> to start the search
     function! FindSel(type, ...)
@@ -190,7 +195,7 @@ else
         endif
         " i doubt exe does anything for me here but
         "let @/ = "\\V" . substitute(@", "\\", "\\\\\\\\", "g")
-        let @/ = "\\V" . substitute(substitute(@", "\\", "\\\\\\\\", "g"), "\<C-j>", "\\\\n", "g")
+        let @/ = '\V' . substitute(substitute(@", '\', '\\\\', "g"), "\<C-j>", '\\n', "g")
         "exe "normal! /<CR>"
 
         let &selection = sel_save
@@ -247,7 +252,6 @@ else
     function! CamelCase(type, ...)
         let sel_save = &selection
         let &selection = "inclusive"
-        let regsave = @"
 
         if a:0  " Invoked from Visual mode, use gv command.
             silent exe "normal! gvy"
@@ -277,11 +281,178 @@ else
 
     source ~/.config/nvim/surround.vim
 
+    function! CenterWidth()
+        let l:cols = winwidth(win_getid())/2 - wincol()
+        if l:cols < 0
+            let l:cols = -l:cols
+            let l:move = "zl"
+        else
+            let l:move = "zh"
+        endif
+        echo "norm " . l:cols . l:move
+        exec "norm " . l:cols . l:move
+    endfunction
+    nnoremap <silent> z\| :call CenterWidth()<CR>
+
+    function! AlignText(regex, secondGroupNum)
+        " NOTE: region should be `<`>
+        if a:secondGroupNum > 9-1
+            echomsg "too many groups in regex '" . a:regex . "'"
+            return
+        endif
+        let l:bufnr = bufnr()
+        let l:lnum = line("v")
+        let l:lines = getbufline(l:bufnr, l:lnum, line("'>"))
+        " get widths of all lines
+        let l:firstwidths = []
+        let l:maxwidth = 0
+        for l:line in l:lines
+            let l:matches = matchlist(l:line, a:regex)
+            if empty(l:matches)
+                let l:width = 0
+            else
+                let l:width = strdisplaywidth(l:matches[1])
+                "echo [l:width, l:matches[1]]
+                if l:width > l:maxwidth
+                    let l:maxwidth = l:width
+                endif
+            endif
+            call add(l:firstwidths, l:width)
+        endfor
+        let l:i = 0
+        for l:line in l:lines
+            let l:width = l:firstwidths[l:i]
+            if l:width != 0
+                let l:spaces = printf("%*s", l:maxwidth - l:width, "")
+                let l:lines[l:i] = substitute(l:line, a:regex, '\1' . l:spaces . '\' . a:secondGroupNum, "")
+            endif
+            let l:i += 1
+        endfor
+        call setline(l:lnum, l:lines)
+    endfunction
+    function! AlignTextRegex(type, ...)
+        let sel_save = &selection
+        let &selection = "inclusive"
+
+        if a:0
+        elseif a:type == 'line'
+            silent exe "normal! '[V']\<Esc>"
+        else
+            silent exe "normal! `[v`]\<Esc>"
+        endif
+        " get input from user on regex to use
+        " - i think it should use groups to specify before and after cause
+        "   sometimes you need to specify something like align stuff after
+        "   this pattern
+        let l:search = input("/")
+        let l:numIndivGroups = 0
+        let l:numFirstGroups = 0
+        let l:ingroup = v:true
+        if l:search !~ '^\(.*\)$'
+            let l:ingroup = v:false
+        else
+            let l:parenLevels = 0
+            let l:groupNum = 0
+            let l:wasEsc = v:false
+            for l:ch in l:search
+                if l:ch == '\'
+                    let l:wasEsc = v:true
+                    continue
+                elseif l:ch == "(" && l:wasEsc
+                    if l:parenLevels == 0
+                        if l:numIndivGroups == 1
+                            let l:numFirstGroups = l:groupNum
+                        endif
+                        let l:numIndivGroups += 1
+                    endif
+                    let l:groupNum += 1
+                    let l:parenLevels += 1
+                elseif l:ch == ")" && l:wasEsc
+                    let l:parenLevels -= 1
+                elseif l:parenLevels == 0
+                    let l:ingroup = v:false
+                    break
+                endif
+                let l:wasEsc = v:false
+            endfor
+        endif
+        " if not everythign in group, put all input into group
+        if ! l:ingroup
+            let l:search = '\(' . l:search . '\)'
+            let l:numIndivGroups = 1
+        endif
+        " if everything in 1 group, then add (.*) group at start
+        if l:numIndivGroups == 1
+            let l:search = '\(^.\{-}\)' . l:search
+            let l:numFirstGroups = 1
+        endif
+        " if first group doesnt start with matching all, then non-greedy match
+        if l:search !~ '\\(\^\.\(\*\|\\{-}\)'
+            let l:search = '\(^.\{-}' . l:search[2:-1]
+        endif
+        " use AlignText to align
+        call AlignText(l:search, l:numFirstGroups + 1)
+        let &selection = sel_save
+    endfunction
+    nnoremap <silent> <leader>A :set opfunc=AlignTextRegex<CR>g@
+    vnoremap <silent> <leader>A :<C-U>call AlignTextRegex(visualmode(), 1)<CR>
+
+    function! AlignChar(type, ...)
+        let sel_save = &selection
+        let &selection = "inclusive"
+
+        if a:0
+        elseif a:type == 'line'
+            silent exe "normal! '[V']\<Esc>"
+        else
+            silent exe "normal! `[v`]\<Esc>"
+        endif
+
+        let l:search = substitute(getcharstr(), '\', '\\', "")
+        let l:search = '\(.\{-}\)\(' . l:search . '\)'
+        call AlignText(l:search, 2)
+
+        let &selection = sel_save
+    endfunction
+    nnoremap <silent> <leader>a :set opfunc=AlignChar<CR>g@
+    vnoremap <silent> <leader>a :<C-U>call AlignChar(visualmode(), 1)<CR>
+
+    function! Transpose(type, ...)
+        " this function should just swap text on either side of specified char
+        " - not sure how much text cause dealing with word boundaries is a pain
+        "   - prolly just use the motion/visual specified
+        " - should be able to swap args in function call like
+        "   (asdf, qwer) -> (qwer, asdf)
+        " - maybe also swap things within a word like
+        "   asdf_qwer -> qwer_asdf
+        " - proabably just take a char to call f to get do and swap with whats
+        "   on other side
+        let l:sel_save = &selection
+        let &selection = "inclusive"
+        if a:0 != 1
+            silent exe "normal! `[v`]\<Esc>"
+        endif
+        let l:search_save = @/
+        let @/ = getcharstr() . "\\s*"
+        " NOTE: this assumes that there is someting on either side of the sep
+        exe "normal! `<yn`>p`>d??e1\<CR>??s-1\<CR>v`<p"
+
+        " asdf = asdf_qwer,     other thigns
+
+        let &selection = l:sel_save
+        let @/ = l:search_save
+    endfunction
+    nnoremap <silent> <leader>gs :set opfunc=Transpose<CR>g@
+    vnoremap <silent> <leader>gs :<C-U>call Transpose(visualmode(), 1)<CR>
+
     " toggle search highlights
     map <leader>H :setlocal hlsearch!<CR>
     " set the search to nothing so that it goes away but i dont have to turn
     " highlights back on for next time
     map <leader>h :let @/ = ""<CR>
+
+    " toggle line wrapping
+    nnoremap <leader>w :set wrap!<CR>
 
     " this is a kinda hacky fix since nvim doesnt have great integration with
     " the system clipboard, when release the left mouse button copy the
@@ -364,6 +535,7 @@ else
         Plug 'nvim-telescope/telescope-fzy-native.nvim'
         Plug 'nvim-treesitter/nvim-treesitter'
         Plug 'nvim-treesitter/playground'
+        Plug 'ziglang/zig.vim'
     endif
 
     call plug#end()
@@ -396,7 +568,7 @@ else
     map <leader>o :setlocal spell! spelllang=en_us<CR>
     map <leader>O :setlocal spell! spelllang=es_mx<CR>
     " leader+s chooses the first spell suggestion
-    map <leader>s z=1<CR><CR>
+    map <leader>s 1z=
 
 
     " map some things for groff files like going into equations
@@ -473,9 +645,9 @@ else
 
 
     " TODO figure out how to limit this to the dev build (right now i just
-    " increased it to the current 0.7
-    if has('nvim-0.9dev')
-        source ~/.config/nvim/latest.vim
+    " increased it to the current 0.10
+    if has('nvim-0.10dev')
+        "source ~/.config/nvim/latest.vim
         lua require('lsp')
     endif
 
@@ -540,8 +712,9 @@ nnoremap <M-L> xp
 
 " chmod ing this file to be executable
 cabbrev src source $MYVIMRC
-"cabbrev fd filetype detect
+cabbrev fd filetype detect
 cabbrev taberc tabe $MYVIMRC
 cabbrev chmex !chmod u+x %
 "cabbrev usecoc source ~/.config/nvim/coc.vim
 
+"echomsg "end of init.vim"
