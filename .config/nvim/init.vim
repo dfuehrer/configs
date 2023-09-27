@@ -323,7 +323,7 @@ else
         for l:line in l:lines
             let l:width = l:firstwidths[l:i]
             if l:width != 0
-                let l:spaces = printf("%*s", l:maxwidth - l:width, "")
+                let l:spaces = repeat(" ", l:maxwidth - l:width)
                 let l:lines[l:i] = substitute(l:line, a:regex, '\1' . l:spaces . '\' . a:secondGroupNum, "")
             endif
             let l:i += 1
